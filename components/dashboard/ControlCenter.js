@@ -24,13 +24,13 @@ export default function ControlCenter() {
   const [modalOpen, setModalOpen] = useState(false);
 
   const [name, setName] = useState("");
-  const [initialSum, setInitialSum] = useState(0);
+  const [sum, setSum] = useState(0);
   const [currency, setCurrency] = useState("USD");
 
   const createAccount = () => {
     const account = {
       name,
-      initialSum,
+      sum: sum,
       currency,
     };
     axios
@@ -41,7 +41,7 @@ export default function ControlCenter() {
 
   const closeModal = () => {
     setName("");
-    setInitialSum(0);
+    setSum(0);
     setModalOpen(false);
   };
 
@@ -68,8 +68,8 @@ export default function ControlCenter() {
                 <Input
                   type="number"
                   placeholder="initial sum, defaults to 0"
-                  onChange={(ev) => setInitialSum(ev.target.value)}
-                  value={initialSum}
+                  onChange={(ev) => setSum(ev.target.value)}
+                  value={sum}
                 />
               </GridItem>
               <GridItem colSpan="1">
