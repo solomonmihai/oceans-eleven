@@ -16,6 +16,7 @@ specifiers:
   pullstate: ^1.22.1
   react: 17.0.2
   react-dom: 17.0.2
+  react-icons: ^4.2.0
 
 dependencies:
   '@chakra-ui/react': 1.6.7_4fc78eefa481b142b73174ceac2a27a1
@@ -31,6 +32,7 @@ dependencies:
   pullstate: 1.22.1_react@17.0.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-icons: 4.2.0_react@17.0.2
 
 devDependencies:
   eslint: 7.32.0
@@ -4272,6 +4274,14 @@ packages:
       use-sidecar: 1.0.5_react@17.0.2
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /react-icons/4.2.0_react@17.0.2:
+    resolution: {integrity: sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:

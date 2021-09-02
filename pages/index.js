@@ -5,6 +5,7 @@ import Head from "next/head";
 import axios from "axios";
 import { useEffect } from "react";
 import CurrencyStore from "../stores/CurrencyStore";
+import UserStore from "../stores/UserStore";
 
 export default function Home() {
   const [session, loading] = useSession();

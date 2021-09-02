@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Grid,
   GridItem,
@@ -17,8 +16,9 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import CurrencyStore from "../../stores/CurrencyStore";
+import UserStore from "../../stores/UserStore";
 
-export default function ControlCenter() {
+export default function CreateAccount() {
   const rates = CurrencyStore.useState((state) => Object.keys(state.rates));
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,8 +34,13 @@ export default function ControlCenter() {
       currency,
     };
     axios
-      .post("/api/account", account)
-      .then(() => closeModal())
+      .post("/api/account/new", account)
+      .then(() => {
+        closeModal();
+        UserStore.update((state) => {
+          state.needsUpdate = true;
+        });
+      })
       .catch((err) => console.log(err));
   };
 
@@ -47,7 +52,7 @@ export default function ControlCenter() {
 
   return (
     <>
-      <Button colorScheme="pink" onClick={() => setModalOpen(true)}>
+      <Button colorScheme="pink" w="100%" onClick={() => setModalOpen(true)}>
         Add new account
       </Button>
       <Modal isOpen={modalOpen} onClose={closeModal} motionPreset="slideInBottom">

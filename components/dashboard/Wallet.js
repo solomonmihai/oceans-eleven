@@ -71,7 +71,7 @@ export default function Wallet() {
   // pass data as a dependency so we redraw everytime the data changes
 
   return (
-    <Box id="wallet-svg">
+    <Box id="wallet-svg" w="100%" p="2" m="2" borderWidth="1px" borderRadius="lg">
       <Text id="wallet-text" color="pink" fontWeight="bold" position="fixed">
         TOTAL
       </Text>
