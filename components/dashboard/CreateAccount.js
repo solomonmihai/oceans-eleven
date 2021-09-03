@@ -14,7 +14,7 @@ import {
   ModalContent,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CurrencyStore from "../../stores/CurrencyStore";
 import UserStore from "../../stores/UserStore";
 
@@ -26,6 +26,8 @@ export default function CreateAccount() {
   const [name, setName] = useState("");
   const [sum, setSum] = useState(0);
   const [currency, setCurrency] = useState("USD");
+
+  const initialFocusRef = useRef();
 
   const createAccount = () => {
     const account = {
@@ -53,9 +55,14 @@ export default function CreateAccount() {
   return (
     <>
       <Button colorScheme="pink" w="100%" onClick={() => setModalOpen(true)}>
-        Add new account
+        Create account
       </Button>
-      <Modal isOpen={modalOpen} onClose={closeModal} motionPreset="slideInBottom">
+      <Modal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        motionPreset="slideInBottom"
+        initialFocusRef={initialFocusRef}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create an account</ModalHeader>
@@ -67,6 +74,7 @@ export default function CreateAccount() {
                   placeholder="name, ex: cash, savings, bank"
                   onChange={(ev) => setName(ev.target.value)}
                   value={name}
+                  ref={initialFocusRef}
                 />
               </GridItem>
               <GridItem colSpan="3">
@@ -100,10 +108,10 @@ export default function CreateAccount() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={closeModal}>
+            <Button variant="outline" mr={3} onClick={closeModal}>
               Cancel
             </Button>
-            <Button colorScheme="green" onClick={createAccount}>
+            <Button colorScheme="pink" onClick={createAccount}>
               Create
             </Button>
           </ModalFooter>

@@ -1,17 +1,9 @@
-import {
-  Box,
-  Text,
-  Heading,
-  GridItem,
-  Grid,
-  HStack,
-  Icon,
-  IconButton,
-  Spacer,
-} from "@chakra-ui/react";
+import { Box, Text, GridItem, Grid, HStack, IconButton } from "@chakra-ui/react";
 import axios from "axios";
 import { MdDelete, MdAdd, MdRemove, MdSwapHoriz } from "react-icons/md";
 import UserStore from "../../stores/UserStore";
+import DeletePopover from "./Popovers/DeletePopover";
+import SumPopover from "./Popovers/SumPopover";
 
 export default function Account({ account }) {
   const { name, currency, sum } = account;
@@ -28,37 +20,33 @@ export default function Account({ account }) {
             </GridItem>
             <GridItem>
               <HStack>
-                <IconButton
-                  backgroundColor="transparent"
-                  borderWidth="1px"
-                  icon={<MdAdd />}
-                  onClick={() => {
+                <SumPopover
+                  sum={sum}
+                  modifySum={(modifier) =>
                     axios
-                      .post("/api/account/change", { id: account._id, newSum: sum - 100 })
-                      .then(() =>
+                      .post("/api/account/modify", {
+                        // the + sign converts from string to number
+                        newSum: Number(+sum + +modifier),
+                        id: account._id,
+                      })
+                      .then(() => {
                         UserStore.update((state) => {
                           state.needsUpdate = true;
-                        })
-                      );
-                  }}
+                        });
+                      })
+                  }
+                  trigger={<IconButton variant="outline" icon={<MdAdd />} />}
                 />
-                <IconButton backgroundColor="transparent" borderWidth="1px" icon={<MdRemove />} />
-                <IconButton
-                  backgroundColor="transparent"
-                  borderWidth="1px"
-                  icon={<MdSwapHoriz />}
-                />
-                <IconButton
-                  backgroundColor="transparent"
-                  borderWidth="1px"
-                  icon={<MdDelete />}
-                  onClick={() => {
+                <IconButton variant="outline" icon={<MdSwapHoriz />} />
+                <DeletePopover
+                  deleteAcc={() => {
                     axios.delete(`/api/account/delete/${account._id}`).then(() =>
                       UserStore.update((state) => {
                         state.needsUpdate = true;
                       })
                     );
                   }}
+                  trigger={<IconButton variant="outline" icon={<MdDelete />} onClick={() => {}} />}
                 />
               </HStack>
             </GridItem>

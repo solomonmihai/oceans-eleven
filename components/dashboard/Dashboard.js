@@ -1,4 +1,4 @@
-import { Box, Flex, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Box, Flex, GridItem, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -12,19 +12,22 @@ export default function Dashboard() {
   const needsUpdate = UserStore.useState((state) => state.needsUpdate);
 
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!needsUpdate) {
       return;
     }
 
-    console.log("updated user");
+    setLoading(true);
+
     axios.get("/api/user").then((res) => {
       UserStore.update((state) => {
         state.user = res.data.user;
         state.needsUpdate = false;
       });
       setUser(res.data.user);
+      setLoading(false);
     });
   }, [needsUpdate]);
 
@@ -44,6 +47,20 @@ export default function Dashboard() {
         <GridItem></GridItem>
         <GridItem></GridItem>
       </SimpleGrid>
+
+      {loading && (
+        <Box
+          width="100vw"
+          height="100vw"
+          backgroundColor="rgba(0, 0, 0, 0.3)"
+          position="fixed"
+          zIndex="1000"
+          top="0"
+          left="0"
+        >
+          <Spinner position="fixed" top="25%" left="48%" size="xl" />
+        </Box>
+      )}
     </>
   );
 }
