@@ -54,7 +54,7 @@ export default function CreateAccount() {
 
   return (
     <>
-      <Button colorScheme="pink" w="100%" onClick={() => setModalOpen(true)}>
+      <Button variant="outline" colorScheme="pink" w="100%" onClick={() => setModalOpen(true)}>
         Create account
       </Button>
       <Modal

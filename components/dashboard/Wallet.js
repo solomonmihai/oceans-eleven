@@ -2,20 +2,18 @@ import { Box, Text } from "@chakra-ui/react";
 
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
+import CurrencyStore from "../../stores/CurrencyStore";
+import UserStore from "../../stores/UserStore";
 
 export default function Wallet() {
-  const data = {
-    usd: 123,
-    eur: 425,
-    ron: 320,
-    ada: 20.3,
-  };
+  const data = UserStore.useState((state) => state.user.accounts);
+  const rates = CurrencyStore.useState((state) => state.rates);
 
   useEffect(() => {
     // draw pie chart
 
-    const keys = Object.keys(data);
-    const values = Object.values(data);
+    const keys = data.map((acc) => acc.name);
+    const values = data.map((acc) => acc.sum / rates[acc.currency]);
 
     const colorScale = d3
       .scaleSequential()
@@ -53,7 +51,7 @@ export default function Wallet() {
       })
       .on("mouseout", function (d, i) {
         d3.select(this).transition().duration(100).attr("opacity", "1");
-        d3.select("#wallet-text").text("total");
+        d3.select("#wallet-text").text(`TOTAL: `);
       });
 
     arc

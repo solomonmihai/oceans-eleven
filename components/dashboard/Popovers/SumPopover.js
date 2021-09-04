@@ -46,6 +46,7 @@ export default function SumPopover({ sum, modifySum, trigger }) {
             <Button
               w="100%"
               colorScheme="pink"
+              disabled={val == 0}
               onClick={() => {
                 modifySum(val);
                 onClose();

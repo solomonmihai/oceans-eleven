@@ -35,7 +35,7 @@ export default function DeletePopover({ deleteAcc, trigger }) {
                 onClose();
               }}
             >
-              Confirm
+              Delete
             </Button>
           </HStack>
         </PopoverFooter>

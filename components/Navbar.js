@@ -13,7 +13,7 @@ export default function NavBar() {
       left="0px"
       top="0px"
       width="100%"
-      backgroundColor="gray.800"
+      backgroundColor={session && "gray.800"}
       zIndex="100"
     >
       {session && (

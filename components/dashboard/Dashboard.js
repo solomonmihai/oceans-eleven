@@ -1,4 +1,16 @@
-import { Box, Flex, GridItem, SimpleGrid, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  GridItem,
+  SimpleGrid,
+  Spinner,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -35,18 +47,33 @@ export default function Dashboard() {
     return <h1>Loading ...</h1>;
   }
 
+  const CustomTab = (props) => <Tab mx="3">{props.children}</Tab>;
+
   return (
     <>
       <NavBar />
 
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} p="3" spacing="10" mt="55px">
-        <GridItem>
-          <CreateAccount />
-          <AccountList />
-        </GridItem>
-        <GridItem></GridItem>
-        <GridItem></GridItem>
-      </SimpleGrid>
+      <Container mt="75px" maxW="container.lg">
+        <Tabs variant="soft-rounded" colorScheme="pink" align="center" textAlign="left" isFitted>
+          <TabList>
+            <CustomTab>Overview</CustomTab>
+            <CustomTab>Accounts</CustomTab>
+            <CustomTab>Diary</CustomTab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <p>Overview</p>
+            </TabPanel>
+            <TabPanel>
+              <CreateAccount />
+              <AccountList />
+            </TabPanel>
+            <TabPanel>
+              <p>diary</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Container>
 
       {loading && (
         <Box
