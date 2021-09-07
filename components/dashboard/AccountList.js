@@ -1,7 +1,6 @@
-import { Box, Text, Heading, GridItem, Grid } from "@chakra-ui/react";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { Box, Text } from "@chakra-ui/react";
 import Account from "./Account";
+import CreateAccount from "./CreateAccount";
 import UserStore from "../../stores/UserStore";
 
 export default function AccountList() {
@@ -9,6 +8,12 @@ export default function AccountList() {
 
   return (
     <Box>
+      <CreateAccount />
+      {accounts && accounts.length == 0 && (
+        <Text textAlign="center" my="3" fontSize="1.5em" color="gray.500">
+          You don't have any accounts yet, press the button above to create one
+        </Text>
+      )}
       {accounts.map((account, index) => (
         <Account key={index} account={account} />
       ))}

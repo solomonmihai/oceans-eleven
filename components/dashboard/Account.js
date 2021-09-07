@@ -4,9 +4,9 @@ import { MdDelete, MdAdd, MdSwapHoriz } from "react-icons/md";
 
 import UserStore from "../../stores/UserStore";
 import AnimatedNumber from "./AnimatedNumber";
-import DeletePopover from "./Popovers/DeletePopover";
-import SumPopover from "./Popovers/SumPopover";
-import TransferPopover from "./Popovers/TransferPopover";
+import DeletePopover from "./popovers/DeletePopover";
+import SumPopover from "./popovers/SumPopover";
+import TransferPopover from "./popovers/TransferPopover";
 
 export default function Account({ account }) {
   const { name, currency, sum } = account;

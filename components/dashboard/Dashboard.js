@@ -1,23 +1,10 @@
-import {
-  Box,
-  Container,
-  Flex,
-  GridItem,
-  SimpleGrid,
-  Spinner,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Box, Container, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 import NavBar from "../Navbar";
 import AccountList from "./AccountList";
-import CreateAccount from "./CreateAccount";
-import Wallet from "./Wallet";
+import WalletPie from "./charts/WalletPie";
 import UserStore from "../../stores/UserStore";
 
 export default function Dashboard() {
@@ -59,17 +46,20 @@ export default function Dashboard() {
             <CustomTab>Overview</CustomTab>
             <CustomTab>Accounts</CustomTab>
             <CustomTab>Diary</CustomTab>
+            <CustomTab>Settings</CustomTab>
           </TabList>
           <TabPanels>
             <TabPanel>
-              <p>Overview</p>
+              <WalletPie />
             </TabPanel>
             <TabPanel>
-              <CreateAccount />
               <AccountList />
             </TabPanel>
             <TabPanel>
               <p>diary</p>
+            </TabPanel>
+            <TabPanel>
+              <p>settings</p>
             </TabPanel>
           </TabPanels>
         </Tabs>
