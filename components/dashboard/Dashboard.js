@@ -4,14 +4,16 @@ import axios from "axios";
 
 import NavBar from "../Navbar";
 import AccountList from "./AccountList";
-import WalletPie from "./charts/WalletPie";
 import UserStore from "../../stores/UserStore";
+import Overview from "./Overview";
 
 export default function Dashboard() {
   const needsUpdate = UserStore.useState((state) => state.needsUpdate);
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
     if (!needsUpdate) {
@@ -34,23 +36,35 @@ export default function Dashboard() {
     return <h1>Loading ...</h1>;
   }
 
-  const CustomTab = (props) => <Tab mx="3">{props.children}</Tab>;
+  const CustomTab = (props) => (
+    <Tab mx="3" {...props}>
+      {props.children}
+    </Tab>
+  );
 
   return (
     <>
       <NavBar />
 
       <Container mt="75px" maxW="container.lg">
-        <Tabs variant="soft-rounded" colorScheme="pink" align="center" textAlign="left" isFitted>
+        <Tabs
+          index={tabIndex}
+          variant="soft-rounded"
+          colorScheme="pink"
+          align="center"
+          textAlign="left"
+          isFitted
+          isLazy
+        >
           <TabList>
-            <CustomTab>Overview</CustomTab>
-            <CustomTab>Accounts</CustomTab>
-            <CustomTab>Diary</CustomTab>
-            <CustomTab>Settings</CustomTab>
+            <CustomTab onClick={() => setTabIndex(0)}>Overview</CustomTab>
+            <CustomTab onClick={() => setTabIndex(1)}>Accounts</CustomTab>
+            <CustomTab onClick={() => setTabIndex(2)}>Diary</CustomTab>
+            <CustomTab onClick={() => setTabIndex(3)}>Settings</CustomTab>
           </TabList>
           <TabPanels>
             <TabPanel>
-              <WalletPie />
+              <Overview setTabIndex={setTabIndex} />
             </TabPanel>
             <TabPanel>
               <AccountList />
